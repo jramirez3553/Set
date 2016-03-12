@@ -8,13 +8,12 @@ public class Set {
     private int size;
 
     public Set() {
-        aSet = new Object[10];
-        size = 0;
+        this(10);
     }
 
     public Set(int size){
         aSet = new Object[size];
-        size =0;
+        this.size =0;
 
     }
 
@@ -49,14 +48,15 @@ public class Set {
            return false;
         else return true;
     }
-
+    //Checks equality of two sets
+    //This an unordered set, so a nested for loop is required.  Investigating if I can reduce the run-time.
     public boolean equals(Object element){
         if(element == null)
             return false;
         if(getClass() != element.getClass())
             return false;
         Set anotherSet = (Set)element;
-        if (size() != anotherSet.size())
+        if (size != anotherSet.size)
             return false;
 
         int count =0;
@@ -66,8 +66,20 @@ public class Set {
                     count++;
         }
             return count == size ? true : false;
-
     }
+    //Returns the union of two sets
+    public Set setUnion(Set element){
+        int newSize = size + element.size;
+        Set newSet = new Set(newSize);
+        for (int i = 0; i < size; i++) {
+                newSet.add(aSet[i]);
+            }
+        for (int i = 0; i < element.size ; i++) {
+            newSet.add(element.aSet[i]);
+        }
+            return newSet;
+        }
+
     public int size(){
         return size;
     }
@@ -75,6 +87,7 @@ public class Set {
     public String toString(){
         String s = "";
         for (int i =0; i<size; i++) {
+
            s = s + " " + aSet[i].toString();
 
         }
